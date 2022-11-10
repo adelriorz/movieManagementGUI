@@ -1,2 +1,2 @@
 # userManagementGUI
-user management GUI apllication
+user management GUI apllication built with Java, Netbeans, PostgreSQL and JPA.
