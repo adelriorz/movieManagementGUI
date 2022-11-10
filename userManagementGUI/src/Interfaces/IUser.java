@@ -3,39 +3,26 @@ package Interfaces;
 /**
  * @author Armand Riviere
  */
-public class IUser {
+public interface IUser {
     
+    /*
+    Reads the db,
+    Checks the db in order to find duplicates
+    add the new user to the db.
+    */
+    public void addUser();
     
-    public void addUser(){
-        /*
-        Reads the db,
-        Checks the db in order to find duplicates
-        add the new user to the db.
-        */
-        try{
-            //User user = new User("Armando", "123");
-            
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    /*
+      Withraws and edits selected id from user
+    */
+    public void editUser();
     
-    public void editUser(){
-        /*
-        Withraws selected id from user
-        */
-    }
+    /*Deletes user from db*/
+    public void deleteUser();
     
-    public void deleteUser(){
-        /*
-        Deletes user from given id
-        */
-    }
+    /*searches user*/
+    public int searchUser();
     
-    public void readUser(){
-        /*
-        Reads and sets the whole db information into the table
-        */
-    }
-    
+    //Returns id fron user
+    public void readUser();
 }
