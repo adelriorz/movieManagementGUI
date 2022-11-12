@@ -1,16 +1,23 @@
 
-import EntityClasses.UserEntity;
-import EntityClasses.UserEntityJpaController;
+import Controller.UserEntity;
+import Controller.UserEntityJpaController;
 
-/**
- * @author Armand Riviere
- */
+
 public class test {
-    UserEntity ue;
+    
+    private static UserEntityJpaController uc;
     
     public static void main(String[] args) {
-     UserEntityJpaController i;
-    
-     
+        UserEntity u;
+        uc.create(new UserEntity("Juan", "contra"));
+        System.out.print(uc.getUserEntityCount());
     }
 }
+
+
+/*Test for the DB:
+
+INSERT INTO test."user"("userName", "password") VALUES('Mac', 'pass');
+SELECT * FROM test."user"
+
+*/

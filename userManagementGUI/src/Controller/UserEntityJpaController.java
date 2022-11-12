@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EntityClasses;
+package Controller;
 
-import EntityClasses.exceptions.NonexistentEntityException;
+import Controller.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -19,7 +20,11 @@ import javax.persistence.criteria.Root;
  * @author Armand Riviere
  */
 public class UserEntityJpaController implements Serializable {
-
+    
+    public UserEntityJpaController() {
+        this.emf = Persistence.createEntityManagerFactory("userManagementGUIPU");
+    }
+    
     public UserEntityJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }

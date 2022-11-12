@@ -1,26 +1,25 @@
 package Views;
 
-import EntityClasses.UserEntityJpaController;
 import Models.User;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class Menu extends javax.swing.JFrame {
     
-    private UserEntityJpaController uc;
     private User user;
     private JTable tableUsers;
 //    private final String[] columnNames = {"Id", "Username", "Password"};
 //    private Object[][] data;
 
     public Menu() {
+        initComponents();
+        JScrollPane panel = null;
+        setLocationRelativeTo(null);
 //        this.data = new Object[][]{
 //            {"Kathy", "Smith", "Snowboarding"},
 //            {"John", "Doe", "Rowing"}
 //        };
-        initComponents();
-        JScrollPane panel = null;
-        setLocationRelativeTo(null);
 //        jTable1 = new JTable(data, columnNames);
     }
 
@@ -151,22 +150,20 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
-            System.exit(0);
+        JOptionPane.showMessageDialog(null, "Thanks for using the GUI!");
+        System.exit(0);
     }//GEN-LAST:event_buttonExitActionPerformed
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
-//        user = new User(
-//                tableUsers
-//        ); 
-        //uc.create(userEntity);
+        
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_buttonEditActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     public static void main(String args[]) {

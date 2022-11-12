@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EntityClasses;
+package Controller;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -22,10 +22,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
-    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    @NamedQuery(name = "UserEntity.findAll", query = "SELECT u FROM UserEntity u"),
+    @NamedQuery(name = "UserEntity.findByUserId", query = "SELECT u FROM UserEntity u WHERE u.userId = :userId"),
+    @NamedQuery(name = "UserEntity.findByUserName", query = "SELECT u FROM UserEntity u WHERE u.userName = :userName"),
+    @NamedQuery(name = "UserEntity.findByPassword", query = "SELECT u FROM UserEntity u WHERE u.password = :password")})
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,6 +50,11 @@ public class UserEntity implements Serializable {
 
     public UserEntity(Integer userId, String userName, String password) {
         this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+    }
+    
+    public UserEntity(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
@@ -100,7 +105,7 @@ public class UserEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "EntityClasses.User[ userId=" + userId + " ]";
+        return "Interfaces.UserEntity[ userId=" + userId + " ]";
     }
     
 }

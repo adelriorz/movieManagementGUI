@@ -9,10 +9,19 @@ public class User {
     private String userName;
     private String userPassword;
     
-    public User(String userName, String userPassword) {
+    public User(java.lang.String userName, java.lang.String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+    }
+    
+    public User(int userId, String userName, String userPassword){
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
+    }
+    
+    public User(User user){
+        user = new User(userId, userName, userPassword);
     }
 
     public int getUserId() {
