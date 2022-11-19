@@ -2,6 +2,10 @@ package Views;
 
 //import Controller.UserEntityJpaController;
 //import Entities.UserEntity;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -9,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class Menu extends javax.swing.JFrame {
     
@@ -189,8 +195,20 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonAddActionPerformed
 
+    private ArrayList<Integer> getSelectedValue(){
+        int column = jTable1.getSelectedColumn();
+        int row = jTable1.getSelectedRow();
+        ArrayList<Integer> values;
+        values = new ArrayList<>(Arrays.asList(column, row));
+        return values;
+    }
+    
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
-        //jTable1.getModel().getValueAt(row_index, col_index); //Get values from table
+        getSelectedValue();
+        int column = (int)getSelectedValue().get(0);
+        int row = (int)getSelectedValue().get(1);
+        System.out.println("row = " + row + " column " + column);
+        System.out.println(jTable1.getModel().getValueAt(row, column).toString());
     }//GEN-LAST:event_buttonEditActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
@@ -198,7 +216,7 @@ public class Menu extends javax.swing.JFrame {
         //jTable1.getModel().getValueAt(row_index, col_index);
         
         
-        response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Warning!", JOptionPane.YES_NO_OPTION);
+        //response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Warning!", JOptionPane.YES_NO_OPTION);
 //        if(response != 0){
 //            /*
 //            //Delete User
