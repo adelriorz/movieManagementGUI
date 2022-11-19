@@ -5,6 +5,7 @@
 package Controller;
 
 import Controller.exceptions.NonexistentEntityException;
+import Entities.User;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,27 +20,28 @@ import javax.persistence.criteria.Root;
  *
  * @author Armand Riviere
  */
-public class UserEntityJpaController implements Serializable {
+public class UserJpaController implements Serializable {
+
+    private final EntityManagerFactory emf;
     
-    public UserEntityJpaController() {
+    public UserJpaController() {
         this.emf = Persistence.createEntityManagerFactory("userManagementGUIPU");
     }
     
-    public UserEntityJpaController(EntityManagerFactory emf) {
+    public UserJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(UserEntity userEntity) {
+    public void create(User user) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(userEntity);
+            em.persist( user);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -48,19 +50,19 @@ public class UserEntityJpaController implements Serializable {
         }
     }
 
-    public void edit(UserEntity userEntity) throws NonexistentEntityException, Exception {
+    public void edit(User user) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            userEntity = em.merge(userEntity);
+            user = em.merge(user);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = userEntity.getUserId();
-                if (findUserEntity(id) == null) {
-                    throw new NonexistentEntityException("The userEntity with id " + id + " no longer exists.");
+                Integer id = user.getUserId();
+                if (findUser(id) == null) {
+                    throw new NonexistentEntityException("The user with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -76,14 +78,14 @@ public class UserEntityJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            UserEntity userEntity;
+            User user;
             try {
-                userEntity = em.getReference(UserEntity.class, id);
-                userEntity.getUserId();
+                user = em.getReference(User.class, id);
+                user.getUserId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The userEntity with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The user with id " + id + " no longer exists.", enfe);
             }
-            em.remove(userEntity);
+            em.remove(user);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -92,19 +94,19 @@ public class UserEntityJpaController implements Serializable {
         }
     }
 
-    public List<UserEntity> findUserEntityEntities() {
-        return findUserEntityEntities(true, -1, -1);
+    public List<User> findUserEntities() {
+        return findUserEntities(true, -1, -1);
     }
 
-    public List<UserEntity> findUserEntityEntities(int maxResults, int firstResult) {
-        return findUserEntityEntities(false, maxResults, firstResult);
+    public List<User> findUserEntities(int maxResults, int firstResult) {
+        return findUserEntities(false, maxResults, firstResult);
     }
 
-    private List<UserEntity> findUserEntityEntities(boolean all, int maxResults, int firstResult) {
+    private List<User> findUserEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(UserEntity.class));
+            cq.select(cq.from(User.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -116,20 +118,20 @@ public class UserEntityJpaController implements Serializable {
         }
     }
 
-    public UserEntity findUserEntity(Integer id) {
+    public User findUser(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(UserEntity.class, id);
+            return em.find(User.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getUserEntityCount() {
+    public int getUserCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<UserEntity> rt = cq.from(UserEntity.class);
+            Root<User> rt = cq.from(User.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

@@ -1,14 +1,24 @@
 package Views;
 
-import Models.User;
+//import Controller.UserEntityJpaController;
+//import Entities.UserEntity;
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class Menu extends javax.swing.JFrame {
     
-    private User user;
+//    private UserEntity user;
+//    private UserEntityJpaController jpa;
     private JTable tableUsers;
+    private JTextField usernameAddInputField;
+    private JTextField passwordAddInputField;
+    private JPanel myPanel;
+    
 //    private final String[] columnNames = {"Id", "Username", "Password"};
 //    private Object[][] data;
 
@@ -16,6 +26,9 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         JScrollPane panel = null;
         setLocationRelativeTo(null);
+        usernameAddInputField = new JTextField();
+        passwordAddInputField = new JTextField();
+        myPanel = new JPanel();
 //        this.data = new Object[][]{
 //            {"Kathy", "Smith", "Snowboarding"},
 //            {"John", "Doe", "Rowing"}
@@ -150,20 +163,48 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
-        JOptionPane.showMessageDialog(null, "Thanks for using the GUI!");
+        //JOptionPane.showMessageDialog(null, "Thanks for using my GUI!"); // Uncomment when program works entirely
         System.exit(0);
     }//GEN-LAST:event_buttonExitActionPerformed
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
-        
+        usernameAddInputField = new JTextField(10);
+        passwordAddInputField = new JTextField(10);
+        myPanel.add(new JLabel("Username:"));
+        myPanel.add(usernameAddInputField);
+        myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+        myPanel.add(Box.createVerticalStrut(30));
+        myPanel.add(new JLabel("Password:"));
+        myPanel.add(passwordAddInputField);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel, 
+                 "Please enter new user values", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            System.out.println("Username: " + usernameAddInputField.getText());
+            System.out.println("Password: " + passwordAddInputField.getText());
+//           user = new UserEntity(usernameAddInputField.getText(), passwordAddInputField.getText());
+//        try{
+//            jpa.create(user);
+//        }catch(Exception e){}
+        }
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
-        
+        //jTable1.getModel().getValueAt(row_index, col_index); //Get values from table
     }//GEN-LAST:event_buttonEditActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        int response;
+        //jTable1.getModel().getValueAt(row_index, col_index);
         
+        
+        response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Warning!", JOptionPane.YES_NO_OPTION);
+//        if(response != 0){
+//            /*
+//            //Delete User
+//            jpa.destroy(ID);
+//            */
+//        }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     public static void main(String args[]) {

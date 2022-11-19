@@ -1,16 +1,20 @@
 
-import Controller.UserEntity;
-import Controller.UserEntityJpaController;
+import Controller.UserJpaController;
+import Entities.User;
 
 
 public class test {
     
-    private static UserEntityJpaController uc;
+    private static UserJpaController uc = new UserJpaController();
     
     public static void main(String[] args) {
-        UserEntity u;
-        uc.create(new UserEntity("Juan", "contra"));
-        System.out.print(uc.getUserEntityCount());
+        User u = new User( "Juan", "contra");
+        try{
+            uc.create(u);
+            System.out.print(uc.findUserEntities().toString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package Entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -21,18 +22,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserEntity.findAll", query = "SELECT u FROM UserEntity u"),
-    @NamedQuery(name = "UserEntity.findByUserId", query = "SELECT u FROM UserEntity u WHERE u.userId = :userId"),
-    @NamedQuery(name = "UserEntity.findByUserName", query = "SELECT u FROM UserEntity u WHERE u.userName = :userName"),
-    @NamedQuery(name = "UserEntity.findByPassword", query = "SELECT u FROM UserEntity u WHERE u.password = :password")})
-public class UserEntity implements Serializable {
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
+    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private Integer userId;
     @Basic(optional = false)
     @Column(name = "userName")
@@ -41,20 +43,21 @@ public class UserEntity implements Serializable {
     @Column(name = "password")
     private String password;
 
-    public UserEntity() {
+    public User() {
     }
 
-    public UserEntity(Integer userId) {
+    public User(Integer userId) {
         this.userId = userId;
     }
 
-    public UserEntity(Integer userId, String userName, String password) {
-        this.userId = userId;
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
     
-    public UserEntity(String userName, String password) {
+    
+    public User(Integer userId, String userName, String password) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
     }
@@ -93,10 +96,10 @@ public class UserEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserEntity)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        UserEntity other = (UserEntity) object;
+        User other = (User) object;
         if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
@@ -105,7 +108,7 @@ public class UserEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Interfaces.UserEntity[ userId=" + userId + " ]";
+        return "Entities.User[ userId=" + userId + " ]";
     }
     
 }
