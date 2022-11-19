@@ -195,7 +195,8 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonAddActionPerformed
 
-    private ArrayList<Integer> getSelectedValue(){
+    //Print values as: System.out.println(jTable1.getModel().getValueAt(row, column).toString());
+    private ArrayList<Integer> getSelectedValueCoordenates(){
         int column = jTable1.getSelectedColumn();
         int row = jTable1.getSelectedRow();
         ArrayList<Integer> values;
@@ -203,12 +204,21 @@ public class Menu extends javax.swing.JFrame {
         return values;
     }
     
+    private String getSelectedValue(){
+        int column = jTable1.getSelectedColumn();
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, column).toString();
+        return value;
+    }
+    
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
-        getSelectedValue();
-        int column = (int)getSelectedValue().get(0);
-        int row = (int)getSelectedValue().get(1);
-        System.out.println("row = " + row + " column " + column);
-        System.out.println(jTable1.getModel().getValueAt(row, column).toString());
+        System.out.println(getSelectedValue());
+//        try{
+//            User u = new User();
+//            uc.edit(u);
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
     }//GEN-LAST:event_buttonEditActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
@@ -220,7 +230,7 @@ public class Menu extends javax.swing.JFrame {
 //        if(response != 0){
 //            /*
 //            //Delete User
-//            jpa.destroy(ID);
+//            uc.destroy(ID);
 //            */
 //        }
     }//GEN-LAST:event_buttonDeleteActionPerformed
