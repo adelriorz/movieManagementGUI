@@ -1,17 +1,23 @@
 
-import Controller.UserJpaController;
-import Entities.User;
+import Controller.MovieJpaController;
+import Entities.Movie;
 
 
 public class test {
     
-    private static UserJpaController uc = new UserJpaController();
-    
     public static void main(String[] args) {
-        User u = new User( "Juan", "contra");
+        MovieJpaController mc = new MovieJpaController();
+        Movie m = new Movie();
         try{
-            uc.create(u);
-            System.out.print(uc.findUserEntities().toString());
+//            m.setMovieName("Lilo");
+//            m.setMovieProducer("Leonardo Di Caprio");
+//            m.setMovieDirector("Leo Di Caprio");
+//            m.setMovieClassification("B15");
+//            m.setMovieGenre("Terror");
+//            m.setMovieDuration(125);
+//            m.setMovieStatus(false);
+//            mc.create(m);
+            System.out.print(mc.findMovieEntities());
         }catch(Exception e){
             e.printStackTrace();
         }

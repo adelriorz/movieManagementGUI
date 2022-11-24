@@ -2,10 +2,9 @@ package Views;
 
 //import Controller.UserEntityJpaController;
 //import Entities.UserEntity;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,13 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
     
-//    private UserEntity user;
-//    private UserEntityJpaController jpa;
+//    private Entities.UserEntity user;
+//    private Controller.UserEntityJpaController jpa;
     private JTable tableUsers;
     private JTextField usernameAddInputField;
     private JTextField passwordAddInputField;
@@ -30,16 +28,64 @@ public class Menu extends javax.swing.JFrame {
 
     public Menu() {
         initComponents();
-        JScrollPane panel = null;
+        panel = null;
         setLocationRelativeTo(null);
+        jTable1.setShowGrid(true);
         usernameAddInputField = new JTextField();
         passwordAddInputField = new JTextField();
         myPanel = new JPanel();
-//        this.data = new Object[][]{
-//            {"Kathy", "Smith", "Snowboarding"},
-//            {"John", "Doe", "Rowing"}
-//        };
-//        jTable1 = new JTable(data, columnNames);
+        usernameAddInputField = new JTextField(10);
+        passwordAddInputField = new JTextField(10);
+        myPanel.add(new JLabel("Username:"));
+        myPanel.add(usernameAddInputField);
+        myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+        myPanel.add(Box.createVerticalStrut(30));
+        myPanel.add(new JLabel("Password:"));
+        myPanel.add(passwordAddInputField);
+    }
+    
+    //Loads user table from db
+    public void loadUserTable(){
+//        DefaultTableModel dtm = new DefaultTableModel();
+//        List<User> userList = new ArrayList<>();
+    
+//        dtm.addColumn("ID");
+//        dtm.addColumn("Username");
+//        dtm.addColumn("Password");
+//        
+//        UserJpaController ujc = new UserJpaController();
+//        userList = ujc.findUserEntities();
+//        
+//        for(User u : userList){
+//            Object row[] = new Object[3];
+//            row[0] = u.getUserId();
+//            row[1] = u.getUserName();
+//            row[2] = u.getUserPassword();
+//            dtm.addRow(row);
+//        }
+//        jTable1.setModel(dtm);
+   }
+    
+    public void clearForm(){
+        usernameAddInputField.setText("");
+        passwordAddInputField.setText("");
+    }
+    
+    private String getSelectedValue(){
+        int column = jTable1.getSelectedColumn();
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, column).toString();
+        return value;
+    }
+    
+    //Print values as: System.out.println(jTable1.getModel().getValueAt(row, column).toString());
+    @SuppressWarnings("unused")
+	private ArrayList<Integer> getSelectedValueCoordenates(){
+        int column = jTable1.getSelectedColumn();
+        int row = jTable1.getSelectedRow();
+        ArrayList<Integer> values;
+        values = new ArrayList<>(Arrays.asList(column, row));
+        return values;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -76,6 +122,8 @@ public class Menu extends javax.swing.JFrame {
         });
 
         buttonEdit.setBackground(new java.awt.Color(102, 153, 255));
+        buttonEdit.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        buttonEdit.setForeground(new java.awt.Color(255, 255, 255));
         buttonEdit.setText("EDIT");
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +132,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         buttonDelete.setBackground(new java.awt.Color(102, 153, 255));
+        buttonDelete.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         buttonDelete.setForeground(new java.awt.Color(255, 255, 255));
         buttonDelete.setText("DELETE");
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +142,8 @@ public class Menu extends javax.swing.JFrame {
         });
 
         buttonAdd.setBackground(new java.awt.Color(102, 153, 255));
+        buttonAdd.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        buttonAdd.setForeground(new java.awt.Color(255, 255, 255));
         buttonAdd.setText("ADD");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,19 +221,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         //JOptionPane.showMessageDialog(null, "Thanks for using my GUI!"); // Uncomment when program works entirely
+        buttonDelete.setEnabled(false);
+        buttonAdd.setEnabled(false);
+        buttonEdit.setEnabled(false);
         System.exit(0);
     }//GEN-LAST:event_buttonExitActionPerformed
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
-        usernameAddInputField = new JTextField(10);
-        passwordAddInputField = new JTextField(10);
-        myPanel.add(new JLabel("Username:"));
-        myPanel.add(usernameAddInputField);
-        myPanel.add(Box.createHorizontalStrut(10)); // a spacer
-        myPanel.add(Box.createVerticalStrut(30));
-        myPanel.add(new JLabel("Password:"));
-        myPanel.add(passwordAddInputField);
-
+        buttonDelete.setEnabled(true);
+        buttonEdit.setEnabled(false);
         int result = JOptionPane.showConfirmDialog(null, myPanel, 
                  "Please enter new user values", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
@@ -194,25 +241,33 @@ public class Menu extends javax.swing.JFrame {
 //        }catch(Exception e){}
         }
     }//GEN-LAST:event_buttonAddActionPerformed
-
-    //Print values as: System.out.println(jTable1.getModel().getValueAt(row, column).toString());
-    private ArrayList<Integer> getSelectedValueCoordenates(){
-        int column = jTable1.getSelectedColumn();
-        int row = jTable1.getSelectedRow();
-        ArrayList<Integer> values;
-        values = new ArrayList<>(Arrays.asList(column, row));
-        return values;
-    }
-    
-    private String getSelectedValue(){
-        int column = jTable1.getSelectedColumn();
-        int row = jTable1.getSelectedRow();
-        String value = jTable1.getModel().getValueAt(row, column).toString();
-        return value;
-    }
     
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
-        System.out.println(getSelectedValue());
+        buttonAdd.setEnabled(false);
+        
+        usernameAddInputField.setText("VALUE FROM DB");
+        passwordAddInputField.setText("VALUE FROM DB");
+        
+        int result = JOptionPane.showConfirmDialog(null, myPanel, 
+                 "Please enter new user values", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            /*
+            
+            */
+            
+            System.out.println("Username: " + usernameAddInputField.getText());
+            System.out.println("Password: " + passwordAddInputField.getText());
+            System.out.println(getSelectedValue());
+        }
+        
+        /*
+        Need to:
+        *1 Whenever user selects a row, get User ID
+        *2 bring values from db,
+        *3 store new values into db
+        *4 Disable ID column
+        */
+        
 //        try{
 //            User u = new User();
 //            uc.edit(u);
@@ -223,8 +278,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         int response;
+        /*
+        MUST GET ID TO DELETE
+        */
         //jTable1.getModel().getValueAt(row_index, col_index);
-        
         
         //response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Warning!", JOptionPane.YES_NO_OPTION);
 //        if(response != 0){
@@ -279,4 +336,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+	private JScrollPane panel;
 }
