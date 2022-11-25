@@ -633,7 +633,19 @@ public class Menu extends javax.swing.JFrame {
         movieList = jm.findMovieEntities();
         
         for(Movie m : movieList){
-            if(m.getMovieName().toLowerCase().equals(movieQuery)){
+            String id = String.valueOf(m.getMovieId());
+            String name = m.getMovieName();
+            String director = m.getMovieDirector();
+            String duration = String.valueOf(m.getMovieDuration());
+            String genre = m.getMovieGenre();
+            String classification = m.getMovieClassification();
+            String producer = m.getMovieProducer();
+            String status = String.valueOf(m.getMovieStatus());
+            
+            if( id.equals(movieQuery) || name.toLowerCase().equals(movieQuery) 
+                    || director.toLowerCase().equals(movieQuery) || genre.toLowerCase().equals(movieQuery) ||
+                    classification.toLowerCase().equals(movieQuery) || producer.toLowerCase().equals(movieQuery) ||
+                    status.toLowerCase().equals(movieQuery)){
              Object row[] = new Object[8];
                 row[0] = m.getMovieId();
                 row[1] = m.getMovieName();
@@ -652,12 +664,6 @@ public class Menu extends javax.swing.JFrame {
     private void jButtonSearchMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchMovieActionPerformed
         String query = jTextFieldMovieSearch.getText().toLowerCase();
         searchMovie(query);
-        //jTextFieldMovieSearch
-//        getSelectedValueCoordenates().get(1);//Col, row
-//        int row = jTableMovie.getSelectedRow();
-//        jTextFieldMovieId.setText(jTableMovie.getValueAt(row, 0).toString());
-//        mc.findMovie(1);
-//        System.out.println(jTableMovie.getValueAt(row, 0).toString());
     }//GEN-LAST:event_jButtonSearchMovieActionPerformed
 
     public static void main(String args[]) {
