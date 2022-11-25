@@ -9,14 +9,14 @@ public class test {
         MovieJpaController mc = new MovieJpaController();
         Movie m = new Movie();
         try{
-//            m.setMovieName("Lilo");
-//            m.setMovieProducer("Leonardo Di Caprio");
-//            m.setMovieDirector("Leo Di Caprio");
-//            m.setMovieClassification("B15");
-//            m.setMovieGenre("Terror");
-//            m.setMovieDuration(125);
-//            m.setMovieStatus(false);
-//            mc.create(m);
+            m.setMovieName("a");
+            m.setMovieProducer("b");
+            m.setMovieDirector("a");
+            m.setMovieClassification("A");
+            m.setMovieGenre("Terror");
+            m.setMovieDuration(1);
+            m.setMovieStatus(false);
+            mc.edit(m);
             System.out.print(mc.findMovieEntities());
         }catch(Exception e){
             e.printStackTrace();
