@@ -1,6 +1,7 @@
 
 import Controller.MovieJpaController;
 import Entities.Movie;
+import java.util.Arrays;
 
 
 public class test {
@@ -9,15 +10,22 @@ public class test {
         MovieJpaController mc = new MovieJpaController();
         Movie m = new Movie();
         try{
-            m.setMovieName("a");
-            m.setMovieProducer("b");
-            m.setMovieDirector("a");
-            m.setMovieClassification("A");
-            m.setMovieGenre("Terror");
+            m.setMovieId(15);
+            m.setMovieName("TEST PASSED!");
+            m.setMovieProducer("TESTER");
+            m.setMovieDirector("TESTER");
+            m.setMovieClassification("D");
+            m.setMovieGenre("Sci-Fy");
             m.setMovieDuration(1);
             m.setMovieStatus(false);
+            
+            //mc.create(m);
+            
             mc.edit(m);
-            System.out.print(mc.findMovieEntities());
+            
+            //mc.destroy(11);
+            
+            System.out.print(Arrays.toString(mc.findMovieEntities().toArray()));
         }catch(Exception e){
             e.printStackTrace();
         }
