@@ -19,8 +19,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
     
-    private JTextField usernameAddInputField;
-    private JTextField passwordAddInputField;
     private JPanel myPanel;
     private Movie m;
     private MovieJpaController mc;
@@ -30,17 +28,6 @@ public class Menu extends javax.swing.JFrame {
         panel = null;
         setLocationRelativeTo(null);
         jTableMovie.setShowGrid(true);
-        usernameAddInputField = new JTextField();
-        passwordAddInputField = new JTextField();
-        myPanel = new JPanel();
-        usernameAddInputField = new JTextField(10);
-        passwordAddInputField = new JTextField(10);
-        myPanel.add(new JLabel("Username:"));
-        myPanel.add(usernameAddInputField);
-        myPanel.add(Box.createHorizontalStrut(10)); // a spacer
-        myPanel.add(Box.createVerticalStrut(30));
-        myPanel.add(new JLabel("Password:"));
-        myPanel.add(passwordAddInputField);
         m = new Movie();
         mc = new MovieJpaController();
         loadMovieTable();
@@ -77,8 +64,6 @@ public class Menu extends javax.swing.JFrame {
     }
     
     public void clearMovieInputFields(){
-        usernameAddInputField.setText("");
-        passwordAddInputField.setText("");
         jTextFieldMovieId.setText("");
         jTextFieldMovieName.setText("");
         jTextFieldMovieDirector.setText("");
@@ -509,12 +494,6 @@ public class Menu extends javax.swing.JFrame {
         m.setMovieDirector(jTextFieldMovieDirector.getText());
         m.setMovieProducer(jTextFieldMovieProducer.getText());
         
-        if(movieDurationValidation > 240 || movieDurationValidation < 80){
-            JOptionPane.showConfirmDialog(null, myPanel, 
-                 "Invalid movie duration", JOptionPane.OK_OPTION);
-            clearMovieInputFields();
-        }
-        
         m.setMovieDuration(movieDurationValidation);
         m.setMovieGenre((String) jComboBoxMovieGenre.getSelectedItem());
         m.setMovieClassification((String) jComboBoxMovieClassification.getSelectedItem());
@@ -540,15 +519,10 @@ public class Menu extends javax.swing.JFrame {
         int movieDurationValidation = Integer.parseInt(jTextFieldMovieDuration.getText());
         String tempMovieStatus = (String)jComboBoxMovieStatus.getSelectedItem();
         
+        me.setMovieId(Integer.valueOf(jTextFieldMovieId.getText()));
         me.setMovieName(jTextFieldMovieName.getText());
         me.setMovieDirector(jTextFieldMovieDirector.getText());
         me.setMovieProducer(jTextFieldMovieProducer.getText());
-        
-        if(movieDurationValidation > 240 || movieDurationValidation < 80){
-            JOptionPane.showConfirmDialog(null, myPanel, 
-                 "Invalid movie duration", JOptionPane.OK_OPTION);
-            clearMovieInputFields();
-        }
         
         me.setMovieDuration(movieDurationValidation);
         me.setMovieGenre((String) jComboBoxMovieGenre.getSelectedItem());
@@ -645,7 +619,8 @@ public class Menu extends javax.swing.JFrame {
             if( id.equals(movieQuery) || name.toLowerCase().equals(movieQuery) 
                     || director.toLowerCase().equals(movieQuery) || genre.toLowerCase().equals(movieQuery) ||
                     classification.toLowerCase().equals(movieQuery) || producer.toLowerCase().equals(movieQuery) ||
-                    status.toLowerCase().equals(movieQuery)){
+                    status.toLowerCase().equals(movieQuery) || 
+                            duration.toLowerCase().equals(movieQuery)){
              Object row[] = new Object[8];
                 row[0] = m.getMovieId();
                 row[1] = m.getMovieName();
